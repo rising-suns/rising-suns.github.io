@@ -113,6 +113,10 @@ videos.forEach(video => {
     video.style.width = smallWidth + "px"; // shrink back when finished
   });
 });
+	
+window.addEventListener('load', () => {
+  window.dispatchEvent(new Event('resize'));
+});	
 </script>
 	
 </body>
