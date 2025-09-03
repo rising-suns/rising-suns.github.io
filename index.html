@@ -5,20 +5,34 @@
 <meta name="robots" content="noindex">	
 <title>Videos for Rising Sun Martial Arts Academy, Santa Maria, CA</title>
 </head>
-  <style>
-    video {
-      width: 200px;        /* small start */
-      height: auto;        /* keep aspect ratio */
-      max-width: 100%;     /* cap at viewport width */
-      max-height: 80vh;    /* cap at viewport height */
-      transition: all 0.5s ease;
-      display: block;
-      margin: 1em auto;    /* centers horizontally */
-    }
-  </style>	
+<style>
+.video-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+video {
+  width: 200px;           /* small thumbnail */
+  height: auto;           /* keep aspect ratio */
+  max-width: 100%;        /* never wider than viewport */
+  max-height: 80vh;       /* never taller than viewport height */
+  transition: all 0.5s ease;
+  display: block;
+}
+	
+@media (max-width: 600px) and (orientation: portrait) {
+  video {
+    max-height: calc(100vh - 100px); /* leave space for controls & header */
+  }
+</style>	
 
 <body>
 <h1>Videos for Rising Sun Martial Arts Academy, Santa Maria, CA</h1>
+	
+<div class="video-gallery" style="max-height:80%; overflow:auto;">
+	
 <h2>Tai Chi Part 1 - Back View</h2>
 <video controls preload="none">
     <source src="https://www.dropbox.com/scl/fi/e0dar5b9hdjfrmexb6ojn/Tai-Chi-Part-1-Back.mp4?rlkey=phjbofelt8tn70y1pmtdzi6r1&st=n51fgco2&raw=1" type="video/mp4">
@@ -66,7 +80,8 @@
     <source src="https://www.dropbox.com/scl/fi/s5c5rci0dru1qx4q7s505/Taikyoku-Shodan-Front.mp4?rlkey=ubi7k0e5rgne06i3ywr99636u&st=a6gh3psf&raw=1" type="video/mp4">
     Your browser does not support the video tag.
 </video>	
-
+</div>
+	
 <script>
 const smallWidth = 200;
 const videos = document.querySelectorAll("video");
