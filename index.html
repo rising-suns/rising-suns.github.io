@@ -22,10 +22,13 @@ video {
   display: block;
 }
 	
-@media (max-width: 600px) and (orientation: portrait) {
+/* @media (max-width: 600px) and (orientation: portrait) */
+@media only screen and (hover: none) and (pointer: coarse) and (orientation: portrait) and (max-device-width:480pt)	
+{
   video {
     max-height: calc(100vh - 100px); /* leave space for controls & header */
   }
+}
 </style>	
 
 <body>
