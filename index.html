@@ -14,7 +14,8 @@
   .video-gallery {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
+	justify-content: flex-start;
     gap: 1em;
   }
 
@@ -39,21 +40,29 @@
     }
   } */
 
-  .overlay-play {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3rem;
-    color: white;
-    background: rgba(0,0,0,0.5);
-    border-radius: 50%;
-    padding: 0.3em 0.4em;
-    cursor: pointer;
-    user-select: none;
-    line-height: 1;
-	/* visibility:hidden; */
-  }
+.overlay-play {
+  position: absolute;
+  top: 50%;                 /* vertical center */
+  left: calc(160px - 6%);   /* 100px minus half of width in percent approximation */
+  transform: translateY(-50%);
+  
+  width: 12%;                /* scales with video width */
+  aspect-ratio: 1 / 1;
+  max-width: 60px;
+  min-width: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* font-size: 1.5em; */
+  font-size: 0.1em; /* revised size */
+  color: white;
+  /* background: rgba(0,0,0,0.5); */
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+}
 
 /* PHONE view, LANDSCAPE orientation */
 @media only screen and (hover: none) and (pointer: coarse) and (orientation: landscape) and (max-device-width:480pt) {
@@ -87,8 +96,9 @@
 </p>
 -->	
 	
-<h2>Tai Chi Part 1 - Back View</h2>
+
 <div class="video-wrapper">
+<h2>Tai Chi Part 1 - Back View</h2>	
 <video controls playsinline preload="none" poster="video_thumb.jpg">
     <source src="https://www.dropbox.com/scl/fi/e0dar5b9hdjfrmexb6ojn/Tai-Chi-Part-1-Back.mp4?rlkey=phjbofelt8tn70y1pmtdzi6r1&st=n51fgco2&raw=1" type="video/mp4">
     Your browser does not support the video tag.
@@ -96,8 +106,8 @@
 <div class="overlay-play">▶</div>	
 </div>	
 
-<h2>Tai Chi Part 1 - Front View</h2>
 <div class="video-wrapper">
+<h2>Tai Chi Part 1 - Front View</h2>	
 <video controls playsinline preload="none" poster="video_thumb.jpg">
     <source src="https://www.dropbox.com/scl/fi/md4n0x4bexdxmp8najkgs/Tai-Chi-Part-1-Front.mp4?rlkey=5stlvaz7wb97cztp6x733bpr1&st=fzy3asl0&raw=1" type="video/mp4">
     Your browser does not support the video tag.
@@ -105,8 +115,8 @@
 <div class="overlay-play">▶</div>	
 </div>	
 
-<h2>Tai Chi Part 1 - Front View Version B</h2>
 <div class="video-wrapper">
+<h2>Tai Chi Part 1 - Front View Version B</h2>	
 <video controls playsinline preload="none" poster="video_thumb.jpg">
     <source src="https://www.dropbox.com/scl/fi/bdemdy6rx5cc5sde0wt3w/Tai-Chi-Part-1-Front-Version-B.mp4?rlkey=v80c07gr16ubxs710t0llh3z4&st=sixufeoj&raw=1" type="video/mp4">
     Your browser does not support the video tag.
@@ -114,8 +124,8 @@
 <div class="overlay-play">▶</div>	
 </div>	
 	
-<h2>Tai Chi Part 2 - Back View</h2>
 <div class="video-wrapper">
+<h2>Tai Chi Part 2 - Back View</h2>	
 <video controls playsinline preload="none" poster="video_thumb.jpg">
     <source src="https://www.dropbox.com/scl/fi/jy1dwq093fnlkg9lmow38/Tai-Chi-Part-2-Back.mp4?rlkey=8hocxsdwo2d43a8nr9m6f1w1p&st=lygy3mab&raw=1" type="video/mp4">
     Your browser does not support the video tag.
@@ -123,8 +133,8 @@
 <div class="overlay-play">▶</div>	
 </div>	
 	
-<h2>Tai Chi Part 2 - Front View</h2>
 <div class="video-wrapper">
+<h2>Tai Chi Part 2 - Front View</h2>	
 <video controls playsinline preload="none" poster="video_thumb.jpg">
     <source src="https://www.dropbox.com/scl/fi/2l4rhmto7d92j0uq4s7ze/Tai-Chi-Part-2-Front.mp4?rlkey=yn7p1ijmq2mmm3nsyeld7w63b&st=0z9e9g8h&raw=1" type="video/mp4">
     Your browser does not support the video tag.
@@ -132,8 +142,8 @@
 <div class="overlay-play">▶</div>	
 </div>
 	
-<h2>Tai Chi Part 3 - Front View</h2>
 <div class="video-wrapper">
+<h2>Tai Chi Part 3 - Front View</h2>	
 <video controls playsinline preload="none" poster="video_thumb.jpg">
     <source src="https://www.dropbox.com/scl/fi/1w59mdv2dxgce00dmmt4v/Tai-Chi-Part-3-Front.mp4?rlkey=mdhxsqtk4onxva8jrn9meyn7d&st=e7ij7uab&raw=1" type="video/mp4">
     Your browser does not support the video tag.
@@ -141,8 +151,8 @@
 <div class="overlay-play">▶</div>	
 </div>
 	
-<h2>Taikyoku Shodan - Back View</h2>
 <div class="video-wrapper">
+<h2>Taikyoku Shodan - Back View</h2>	
 <video controls playsinline preload="none" poster="video_thumb.jpg">
     <source src="https://www.dropbox.com/scl/fi/6ajpr31fhkgkn0w7hbals/Taikyoku-Shodon-Back.mp4?rlkey=o1tr2452zkz2am18r595qm3or&st=ai16lrye&raw=1" type="video/mp4">
     Your browser does not support the video tag.
@@ -150,8 +160,8 @@
 <div class="overlay-play">▶</div>	
 </div>
 	
-<h2>Taikyoku Shodan - Front View</h2>
 <div class="video-wrapper">
+<h2>Taikyoku Shodan - Front View</h2>	
 <video controls playsinline preload="none" poster="video_thumb.jpg">
     <source src="https://www.dropbox.com/scl/fi/s5c5rci0dru1qx4q7s505/Taikyoku-Shodan-Front.mp4?rlkey=ubi7k0e5rgne06i3ywr99636u&st=a6gh3psf&raw=1" type="video/mp4">
     Your browser does not support the video tag.
