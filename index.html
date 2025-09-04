@@ -6,22 +6,33 @@
 <title>Videos for Rising Sun Martial Arts Academy, Santa Maria, CA</title>
 </head>
 <style>
-.video-gallery {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1em;
-}
+  body {
+    font-family: sans-serif;
+    padding: 1em;
+  }
 
-video {
-  width: 200px;           /* small thumbnail */
-  height: auto;           /* keep aspect ratio */
-  max-width: 100%;        /* never wider than viewport */
-  max-height: 80vh;       /* never taller than viewport height */
-  transition: all 0.5s ease;
-  display: block;
-}
-	
+  .video-gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+  }
+
+  video {
+    width: 200px;           /* small thumbnail start */
+    height: auto;           /* maintain aspect ratio */
+    max-width: 100%;        /* never wider than viewport */
+    max-height: 80vh;       /* limit height on desktop */
+    transition: all 0.5s ease;
+    display: block;
+  }
+
+  /* iOS portrait fix: avoid collapsing tall videos
+  @media (max-width: 600px) and (orientation: portrait) {
+    video {
+      max-height: calc(100vh - 100px); /* adjust for header/margin 
+    }
+  } */	
 /* @media (max-width: 600px) and (orientation: portrait) */
 @media only screen and (hover: none) and (pointer: coarse) and (orientation: portrait) and (max-device-width:480pt)	
 {
@@ -34,7 +45,7 @@ video {
 <body>
 <h1>Videos for Rising Sun Martial Arts Academy, Santa Maria, CA</h1>
 	
-<div class="video-gallery" style="max-height:80%; overflow:auto;">
+<div class="video-gallery">
 	
 <h2>Tai Chi Part 1 - Back View</h2>
 <video controls preload="none">
@@ -87,24 +98,30 @@ video {
 	
 <script>
 const smallWidth = 200;
-const videos = document.querySelectorAll("video");
+const videos = document.querySelectorAll(".video-gallery video");
 
 videos.forEach(video => {
   let naturalWidth = smallWidth;
 
+  // store natural width when metadata is available
+  video.addEventListener("loadedmetadata", () => {
+    naturalWidth = video.videoWidth;
+  });
+
   video.addEventListener("play", () => {
-    // Pause all other videos
+    // pause and shrink all other videos
     videos.forEach(v => {
       if (v !== video) {
         v.pause();
-        v.style.width = smallWidth + "px"; // shrink others
+        v.style.width = smallWidth + "px";
       }
     });
 
-    // Firefox: if videoWidth unknown, wait for metadata
+    // expand current video
     if (video.videoWidth > 0) {
       video.style.width = video.videoWidth + "px";
     } else {
+      // wait for metadata if Firefox doesn’t have it yet
       video.addEventListener("loadedmetadata", function handler() {
         video.style.width = video.videoWidth + "px";
         video.removeEventListener("loadedmetadata", handler);
@@ -116,10 +133,6 @@ videos.forEach(video => {
     video.style.width = smallWidth + "px"; // shrink back when finished
   });
 });
-	
-window.addEventListener('load', () => {
-  window.dispatchEvent(new Event('resize'));
-});	
 </script>
 	
 </body>
