@@ -18,30 +18,46 @@
     gap: 1em;
   }
 
-  video {
-    width: 200px;           /* small thumbnail start */
-    height: auto;           /* maintain aspect ratio */
-    max-width: 100%;        /* never wider than viewport */
-    max-height: 80vh;       /* limit height on desktop */
-	min-height: 100px;      /* try to keep controls from disappearing in Portrait mode on iPhone */
-    transition: all 0.5s ease;
-    display: block;
-	  
-	  aspect-ratio: 16 / 9;  /* or 9/16 for portrait videos */
-	  width: 200px;          /* your thumbnail size */
-	  height: auto;	  
+  .video-wrapper {
+    position: relative;
+    display: inline-block;
   }
 
-  /* iOS portrait fix: avoid collapsing tall videos
+  .video-wrapper video {
+    width: 200px;          /* thumbnail width */
+    height: auto;
+    max-width: 100%;
+    max-height: 80vh;
+    transition: all 0.5s ease;
+    display: block;
+  }
+
+  /* iOS portrait fix 
   @media (max-width: 600px) and (orientation: portrait) {
-    video {
-      max-height: calc(100vh - 100px); /* adjust for header/margin 
+    .video-wrapper video {
+      max-height: calc(100vh - 100px);
     }
-  } */	
+  } */
+
+  .overlay-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: white;
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    padding: 0.3em 0.4em;
+    cursor: pointer;
+    user-select: none;
+    line-height: 1;
+  }
+	
 /* @media (max-width: 600px) and (orientation: portrait) */
 @media only screen and (hover: none) and (pointer: coarse) and (orientation: portrait) and (max-device-width:480pt)	
 {
-  video {
+  .video-wrapper video {
     max-height: calc(100vh - 100px); /* leave space for controls & header */
   }
 }
@@ -53,10 +69,13 @@
 <div class="video-gallery">
 	
 <h2>Tai Chi Part 1 - Back View</h2>
+<div class="video-wrapper">
 <video controls playsinline preload="none" poster="video_thumb.jpg">
     <source src="https://www.dropbox.com/scl/fi/e0dar5b9hdjfrmexb6ojn/Tai-Chi-Part-1-Back.mp4?rlkey=phjbofelt8tn70y1pmtdzi6r1&st=n51fgco2&raw=1" type="video/mp4">
     Your browser does not support the video tag.
-</video>	
+</video>
+<div class="overlay-play">▶</div>	
+</div>	
 
 <h2>Tai Chi Part 1 - Front View</h2>
 <video controls playsinline preload="none" poster="video_thumb.jpg">
@@ -103,39 +122,55 @@
 	
 <script>
 const smallWidth = 200;
-const videos = document.querySelectorAll(".video-gallery video");
+const wrappers = document.querySelectorAll(".video-wrapper");
 
-videos.forEach(video => {
+wrappers.forEach(wrapper => {
+  const video = wrapper.querySelector("video");
+  const button = wrapper.querySelector(".overlay-play");
+
+  // Store natural width when metadata is ready
   let naturalWidth = smallWidth;
-
-  // store natural width when metadata is available
   video.addEventListener("loadedmetadata", () => {
     naturalWidth = video.videoWidth;
   });
 
-  video.addEventListener("play", () => {
-    // pause and shrink all other videos
-    videos.forEach(v => {
-      if (v !== video) {
-        v.pause();
-        v.style.width = smallWidth + "px";
+  // Overlay click → start playback
+  button.addEventListener("click", () => {
+    // pause and reset all other videos
+    wrappers.forEach(otherWrapper => {
+      const otherVideo = otherWrapper.querySelector("video");
+      const otherButton = otherWrapper.querySelector(".overlay-play");
+      if (otherVideo !== video) {
+        otherVideo.pause();
+        otherVideo.removeAttribute("controls");
+        otherVideo.style.width = smallWidth + "px";
+        otherButton.style.display = "block";
+        otherVideo.load(); // reset poster
       }
     });
 
-    // expand current video
+    button.style.display = "none";
+    video.setAttribute("controls", "true");
+
+    // Expand to natural width (with responsive constraints)
     if (video.videoWidth > 0) {
       video.style.width = video.videoWidth + "px";
     } else {
-      // wait for metadata if Firefox doesn’t have it yet
       video.addEventListener("loadedmetadata", function handler() {
         video.style.width = video.videoWidth + "px";
         video.removeEventListener("loadedmetadata", handler);
       });
     }
+
+    video.play();
   });
 
+  // When video ends → shrink & reset
   video.addEventListener("ended", () => {
-    video.style.width = smallWidth + "px"; // shrink back when finished
+    video.style.width = smallWidth + "px";
+    video.removeAttribute("controls");
+    button.style.display = "block";
+    video.load(); // restore poster
   });
 });
 </script>
